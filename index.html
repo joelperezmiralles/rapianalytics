@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapitecnic Dashboard - Análisis de Averías</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+    <div id="app">
+        <!-- Background elements for visual flair -->
+        <div class="blob magenta"></div>
+        <div class="blob cyan"></div>
+        <div class="grid-overlay"></div>
+
+        <header>
+            <div class="container header-content">
+                <div class="logo">
+                    <span class="logo-icon">📊</span>
+                    <h1>Rapitecnic<span>Analytics</span></h1>
+                </div>
+                <div class="header-right">
+                    <button id="theme-toggle" class="btn-icon" title="Cambiar tema">🌓</button>
+                    <div class="theme-info">Dashboards Interactivos v1.0</div>
+                </div>
+            </div>
+        </header>
+
+        <main class="container">
+            <!-- Upload Section -->
+            <section id="upload-section" class="card glass animate-in">
+                <div class="upload-area" id="drop-zone">
+                    <div class="upload-icon">📁</div>
+                    <h2>Sube tu archivo de Excel</h2>
+                    <p>Arrastra y suelta tu archivo .xlsx aquí o haz clic para seleccionar</p>
+                    <input type="file" id="file-input" accept=".xlsx, .xls" hidden>
+                    <button id="upload-btn" class="btn-primary">Seleccionar Archivo</button>
+                    <div class="format-tip">Formato esperado: Avisos | Aparato | Motivo_Avería</div>
+                </div>
+            </section>
+
+            <!-- Dashboard Section (Hidden by default) -->
+            <section id="dashboard-section" class="hidden">
+                <div class="dashboard-header animate-in">
+                    <div class="dashboard-title">
+                        <h2>Resumen General</h2>
+                        <span id="file-name-display" class="badge">archivo_procesado.xlsx</span>
+                    </div>
+                    <button id="reset-btn" class="btn-secondary">Cargar nuevo archivo</button>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card glass animate-slide-up" style="animation-delay: 0.1s;">
+                        <span class="stat-label">Total Avisos</span>
+                        <div class="stat-value" id="total-avisos">0</div>
+                        <div class="stat-trend up">Registros procesados</div>
+                    </div>
+                    <div class="stat-card glass animate-slide-up" style="animation-delay: 0.2s;">
+                        <span class="stat-label">Aparatos Distintos</span>
+                        <div class="stat-value" id="total-aparatos">0</div>
+                        <div class="stat-trend">Categorías identificadas</div>
+                    </div>
+                    <div class="stat-card glass animate-slide-up" style="animation-delay: 0.3s;">
+                        <span class="stat-label">Motivos Únicos</span>
+                        <div class="stat-value" id="total-motivos">0</div>
+                        <div class="stat-trend">Tipos de avería</div>
+                    </div>
+                </div>
+
+                <!-- Charts Layout -->
+                <div class="charts-layout">
+                    <div class="chart-container glass animate-slide-up" style="animation-delay: 0.4s;">
+                        <div class="chart-header">
+                            <h3>Distribución por Aparato</h3>
+                            <div class="chart-actions">
+                                <button class="btn-chart-type active" data-chart="aparato" data-type="bar">Barras</button>
+                                <button class="btn-chart-type" data-chart="aparato" data-type="doughnut">Rosquilla</button>
+                            </div>
+                        </div>
+                        <div class="canvas-wrapper">
+                            <canvas id="aparato-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-container glass animate-slide-up" style="animation-delay: 0.5s;">
+                        <div class="chart-header">
+                            <h3>Top Motivos de Avería</h3>
+                            <div class="chart-actions">
+                                <button class="btn-chart-type active" data-chart="motivo" data-type="bar">Barras</button>
+                                <button class="btn-chart-type" data-chart="motivo" data-type="pie">Circular</button>
+                            </div>
+                        </div>
+                        <div class="canvas-wrapper">
+                            <canvas id="motivo-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detailed Breakdown -->
+                <div class="full-width-card glass animate-slide-up" style="animation-delay: 0.6s;">
+                    <div class="chart-header">
+                        <h3>Desglose Detallado</h3>
+                        <div class="filter-controls">
+                            <select id="aparato-filter" class="form-select">
+                                <option value="all">Todos los aparatos</option>
+                            </select>
+                            <select id="motivo-filter" class="form-select">
+                                <option value="all">Todos los motivos</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="canvas-wrapper taller">
+                        <canvas id="detail-chart"></canvas>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="container">
+            <p>&copy; 2026 Rapitecnic Analytics Dashboards. Diseñado con ❤️ para la eficiencia.</p>
+        </footer>
+    </div>
+
+    <script type="module" src="/main.js"></script>
+</body>
+</html>
